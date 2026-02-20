@@ -1,73 +1,55 @@
-# Flutter Development Environment
+# 枠 (waku)
 
-A simple Nix setup for Flutter development with Android testing options.
+> A frame for Flutter, defined by Nix.
 
-## Key Features
+**枠 (waku)** translates to "Frame" or "Framework"—the boundary that gives structure to form. This project provides a precision-crafted space that contains and protects your Flutter imagination, ensuring every tool remains exactly where it was intended.
 
-- Flutter and Dart SDK development environment
-- Android SDK with build tools
-- Two options for testing Android apps:
-  - Standard Android Emulator (using `default.nix`)
-  - Waydroid for native Wayland support (using `flake.nix`)
+### The Atelier
 
-## Quick Start
+Within this frame, tools are curated for clarity and purpose:
 
-### Method 1: Android Emulator (recommended for most cases)
+- **Flutter**: A stable environment for crafting interfaces.
+- **Android SDK**: A deliberate selection of platform versions and build tools.
+- **Browser Curation**: Support for Chrome, Chromium, or custom paths, ensuring your web interfaces breathe correctly within the frame.
+- **Emulator Rituals**: Seamless creation and activation of Android emulators within the shell.
+- **Gradle Harmony**: Automatic handling of internal paths, removing the friction of local configuration.
+
+### The Ritual
+
+To begin your journey, initialize the frame:
 
 ```bash
-# Build and run the emulator
-nix-build default.nix
-./result/bin/run-test-emulator
+mkdir project && cd project
+nix flake init -t github:linuxmobile/flutter-flake-template
 ```
 
-### Method 2: Flutter + Waydroid (for Wayland environments)
+Enter the sanctuary that suits your intention:
 
 ```bash
-# Setup in NixOS configuration.nix
-virtualisation.waydroid.enable = true;
-
-# Enter development environment
+# The Standard Shell
 nix develop
 
-# Start Waydroid
-sudo waydroid init -s GAPPS -f
-sudo systemctl start waydroid-container
-waydroid session start
-waydroid show-full-ui
+# The Web Shell (Chromium)
+nix develop .#chromium
+
+# The Emulator Shell
+nix develop .#emulator
 ```
 
-## Flutter Workflow
+Once inside, the tools are ready for your touch:
 
 ```bash
-# Create new project
-flutter create my_app
-cd my_app
-
-# Build your app
-flutter build apk
-
-# Install on Android Emulator
-adb install build/app/outputs/flutter-apk/app-release.apk
-
-# Or install on Waydroid
-waydroid app install build/app/outputs/flutter-apk/app-release.apk
+flutter doctor
+flutter create .
+flutter run
 ```
 
-## Troubleshooting
+### Curation
 
-### Android Emulator Issues
+Adjust the `USER CONFIGURATION` within `flake.nix` to align the frame with your project's specific needs. Here, you define the versions and tools that will form your boundary.
 
-If you have problems with the emulator:
+### Troubleshooting
 
-- Try with `JDK8` instead of `JDK17` if the AVD manager fails
-- Ensure KVM is enabled: `sudo modprobe kvm`
-- Check virtualization is enabled in BIOS/UEFI
+Should the frame feel misaligned, verify your Android licenses with `flutter doctor --android-licenses` or ensure KVM is active for your emulators.
 
-### Waydroid Issues
-
-For GPU performance problems:
-
-```bash
-echo "ro.hardware.gralloc=default
-ro.hardware.egl=swiftshader" | sudo tee -a /var/lib/waydroid/waydroid_base.prop
-```
+_The frame does not limit the art; it makes the art possible._
